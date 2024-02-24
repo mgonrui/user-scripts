@@ -1,3 +1,3 @@
 # scripts
 
-my user scripts
+scripts made for my personal use
