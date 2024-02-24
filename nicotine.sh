@@ -6,7 +6,7 @@ source_folder="$HOME/downloads/nicotine"
 # Destination folder where you want to move the subfolders
 destination_folder="$HOME/media/audio/music"
 
-path="/home/mgr/downloads/nicotine/"
+path="$HOME/downloads/nicotine/"
 while IFS= read -r -d $'\0' file; do
     result+=("$file") # Append each line to the array
 done < <( find "$source_folder" -mindepth 1 -maxdepth 1 -type d -print0)

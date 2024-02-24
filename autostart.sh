@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# start ssh-agent
-#[ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)"
 # set screen layout and resolution for X
 sh $HOME/.scripts/switch_screens.sh &
 
