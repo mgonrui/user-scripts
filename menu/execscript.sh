@@ -3,7 +3,6 @@ file=$(du -a --exclude "$HOME/.scripts/menu" ~/.scripts | cut -f2- | rev | cut -
 path=$(find ~/.scripts -type f -name "$file".sh)
 
 if [ -e "$path" ]; then
-	# sh  ~/.scripts/menu/killterm.sh &
 	sh "$path" 
 else
 	exit
