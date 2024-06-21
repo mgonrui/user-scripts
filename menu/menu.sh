@@ -1,7 +1,13 @@
 #!/bin/sh
-source killterm.sh
 shopt -s expand_aliases
 
+term="alacritty"
+
+killterm(){
+    local seconds="$1"
+    sleep $seconds
+    pkill "$term" 
+}
 # get the list of all my packages
 command_list="$(nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2- |  cut -d '-' -f 1 | 
 grep -vw -e "tutanota" -e "qownnotes" -e  "tor" -e "signal")"
@@ -10,13 +16,13 @@ grep -vw -e "tutanota" -e "qownnotes" -e  "tor" -e "signal")"
 # append new options
 command_list+="
 www
+www osint
+www vanilla
 notes
 email
 library
 bluetooth
-firefox osint
 xscreensaver-settings
-www vanilla
 execscript
 virt-manager
 tor-browser
@@ -39,9 +45,9 @@ source ~/.config/zsh/aliases.sh
 if [ "$selected" == "library" ]; then
     setsid sh ~/.scripts/menu/library.sh
 elif [ "$selected" == "execscript" ]; then
-    sh ~/.scripts/menu/execscript.sh
+    sh $HOME/.scripts/menu/execscript.sh
 elif [ "$selected" == "bluetooth" ]; then
-    sh ~/.scripts/menu/bluetooth.sh
+    sh $HOME/.scripts/menu/bluetooth.sh
 
 # authenticator needs more time to load
 elif [ "$selected" == "proxmox" ]; then
@@ -56,15 +62,12 @@ elif [ "$selected" == "mp" ]; then
 elif [ "$selected" == "authenticator" ]; then
     killterm 0.01 &
     setsid authenticator &> /dev/null
-elif [ "$selected" == "obsidian" ]; then
-    killterm 0.01 &
-    setsid obsidian &> /dev/null
 elif [ "$selected" == "www vanilla" ]; then
     killterm 0.001 &
     setsid $BROWSER -P vanilla 
-elif [ "$selected" == "firefox osint" ]; then
+elif [ "$selected" == "www osint" ]; then
     killterm 0.001 &
-    setsid firefox -P osint
+    setsid $BROWSER -P osint
 elif [ "$selected" == "email" ]; then
     killterm 0.001 &
     setsid tutanota-desktop
@@ -74,7 +77,6 @@ elif [ "$selected" == "signal" ]; then
 elif [ "$selected" == "notes" ]; then
     killterm 0.001 &
     setsid qownnotes
-# elif [ "$selected" == "tutanota" ]; then
 else
     killterm 10 &
     killterm 0.001 &
