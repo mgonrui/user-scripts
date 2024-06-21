@@ -16,8 +16,9 @@ library
 bluetooth
 firefox osint
 xscreensaver-settings
-firefox vanilla
+www vanilla
 execscript
+virt-manager
 tor-browser
 signal-desktop
 lc 
@@ -64,9 +65,9 @@ elif [ "$selected" == "authenticator" ]; then
 elif [ "$selected" == "obsidian" ]; then
     killterm 0.01 &
     setsid obsidian &> /dev/null
-elif [ "$selected" == "firefox vanilla" ]; then
+elif [ "$selected" == "www vanilla" ]; then
     killterm 0.001 &
-    setsid firefox -P vanilla 
+    setsid $BROWSER -P vanilla 
 elif [ "$selected" == "firefox osint" ]; then
     killterm 0.001 &
     setsid firefox -P osint

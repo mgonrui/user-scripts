@@ -3,7 +3,7 @@
 rm -rf $HOME/.config/hosts.nix
 touch $HOME/.config/hosts.nix
 
-sudo docker run --pull always --rm -it -v $HOME/.config/hosts.nix:/etc/hosts ghcr.io/stevenblack/hosts:latest updateHostsFile.py --auto --replace --extensions gambling
+sudo docker run --pull always --rm -it -v $HOME/.config/hosts.nix:/etc/hosts ghcr.io/stevenblack/hosts:latest updateHostsFile.py --auto --replace --extensions gambling porn
 
 sed -i -e '1i\
 \
