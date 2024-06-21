@@ -1,4 +1,7 @@
-#!/bin/sh
+term="alacritty"
 
-sleep 0.01
-pkill alacritty
+killterm(){
+    local seconds="$1"
+    sleep $seconds
+    pkill "$term" 
+}

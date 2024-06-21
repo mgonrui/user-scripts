@@ -1,14 +1,14 @@
 #!/bin/sh
+source killterm.sh
 shopt -s expand_aliases
 
 # get the list of all my packages
 command_list="$(nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2- |  cut -d '-' -f 1 | 
-grep -vw -e "tutanota" -e "qownnotes" -e  "tor" -e "signal" -e "joplin")"
+grep -vw -e "tutanota" -e "qownnotes" -e  "tor" -e "signal")"
 
 # command_list="$(echo "$commandlist" | grep -v "signal")"
 # append new options
 command_list+="
-joplin-desktop
 www
 notes
 email
@@ -31,12 +31,6 @@ drracket
 "
 
 selected="$(echo "$command_list" | fzf -i -m --reverse  )"
-
-killterm(){
-    local seconds="$1"
-    sleep $seconds
-    pkill xterm 
-}
 
 source ~/.config/zsh/aliases.sh
 [ -z "$selected" ] && exit

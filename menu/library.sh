@@ -1,9 +1,11 @@
 #!/bin/sh
 
+term="alacritty"
+
 killterm(){
     local seconds="$1"
     sleep $seconds
-    pkill xterm 
+    pkill "$term" 
 }
 
 file=$(du -a --exclude "$HOME/documents/library/.caltrash" $HOME/documents/library | grep -ie "\.epub$" -ie "\.pdf$" | cut -f2- | rev | cut -d. -f2- | rev | awk -F'/' '{print $NF}' | fzf -i -m --reverse)
@@ -18,7 +20,7 @@ if ! [ -e "$path" ]; then
 fi
 
 if [ -e "$path" ]; then
-	killterm 0.001
+	killterm 0.00001
 	setsid zathura  "$path" 
 else
 	exit
