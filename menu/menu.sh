@@ -48,8 +48,6 @@ elif [ "$selected" == "execscript" ]; then
     sh $HOME/.scripts/menu/execscript.sh
 elif [ "$selected" == "bluetooth" ]; then
     sh $HOME/.scripts/menu/bluetooth.sh
-
-# authenticator needs more time to load
 elif [ "$selected" == "proxmox" ]; then
     killterm 0.001 &
     setsid chromium &> /dev/null
@@ -59,6 +57,7 @@ elif [ "$selected" == "www" ]; then
 elif [ "$selected" == "mp" ]; then
     killterm 0.001 &
     setsid strawberry &> /dev/null
+# authenticator needs more time to load
 elif [ "$selected" == "authenticator" ]; then
     killterm 0.01 &
     setsid authenticator &> /dev/null
