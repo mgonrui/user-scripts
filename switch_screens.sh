@@ -1,23 +1,24 @@
 #!/bin/sh
-
+laptop_screen="eDP-1"
+left_monitor="HDMI-1"
+right_monitor="DP-2"
 # detect if  both external monitors are connected
-if (xrandr | grep -q "HDMI1 connected") && (xrandr | grep -q "DP2 connected"); then
+if (xrandr | grep -q "$left_monitor connected") && (xrandr | grep -q "$right_monitor connected"); then
 # turn on monitors 
-	xrandr --output "HDMI1" --mode 1440x900
-	xrandr --output "DP2" --mode 1280x1024 --left-of "HDMI1"
+	xrandr --output "$left_monitor" --mode 1280x1024
+	xrandr --output "$right_monitor" --mode 1440x900 --right-of "$left_monitor"
 # turn off laptop screen
-	xrandr --output "eDP1" --off
+	xrandr --output "$laptop_screen" --off
 # restart qtile
 	qtile cmd-obj -o cmd -f reload_config
 
 # detect if both external monitors are disconnected
-elif (xrandr | grep -q "HDMI1 disconnected") && (xrandr | grep -q "DP2 disconnected"); then
+elif (xrandr | grep -q "$left_monitor disconnected") && (xrandr | grep -q "$right_monitor disconnected"); then
 # turn on laptop screen 
-	xrandr --output "eDP1" --mode 1920x1080
-	# xrandr --output "HDMI1" --mode 1920x1080 --right-of "eDP1"
+	xrandr --output "$laptop_screen" --mode 1920x1080
 # turn off monitors
-	xrandr --output "DP2" --off
-	xrandr --output "HDMI1" --off
+	xrandr --output "$right_monitor" --off
+	xrandr --output "$left_monitor" --off
 # restart qtile
 	qtile cmd-obj -o cmd -f reload_config
 fi
