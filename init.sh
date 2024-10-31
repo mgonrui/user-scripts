@@ -2,7 +2,7 @@
 
 # set screen layout and resolution for X
 sh $HOME/.scripts/switch_screens.sh &
-
+/usr/bin/emacs --daemon &
 # disable trackpoint 
 # trackpad settings
 xinput set-prop "AlpsPS/2 ALPS DualPoint TouchPad" 'libinput Accel Speed' 1 &

@@ -34,7 +34,7 @@ elif [ "$device" == "OpenRun by Shokz" ]; then
 elif [ "$device" == "AUKEY BR-C1" ]; then
 	bluetoothctl connect FC:58:FA:A1:00:82 && exit
 	not_found
-elif [ "$device" == "Bose QC35 II" ]; then
+elif [ "$device" == "Bose QC35 II" ] || [ "$device" == "LE-Bose QC35 II" ]; then
 	bluetoothctl connect 2C:41:A1:82:E2:47 && exit
 	not_found
 else
