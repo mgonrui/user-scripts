@@ -1,46 +1,34 @@
 #!/bin/sh
 
-# for discovering new devices and storing them permanently in 'bluetoothctl devices':
-# bluetoothctl
-# power on
-# scan on
-# connect XXXXXXX
-# after that youll need to make a manual entry for the device in this script if its the first time
-
 not_found(){
 	clear
 	echo ""
 	echo "DEVICE NOT FOUND"
+	echo "PRESS ENTER TO GO BACK TO BLUETOOTH MENU"
 	read
 }
+
 while true; do
-device="DISCONNECT"
-device+="
+device_name="DISCONNECT"
+device_name+="
 $(bluetoothctl devices | cut -d ' ' -f3-)"
 
-device=$(echo "$device" | fzf)
+device_name=$(echo "$device_name" | fzf)
+device_id="$(bluetoothctl devices | grep "$device_name" | cut -d ' ' -f2)"
 
 #for a do-nothing hit escape
-if [ "$device" == "" ]; then
+if [ "$device_name" == "" ]; then
+	bluetoothctl disconnect
 	exit
 fi
 
-bluetoothctl disconnect
-if [ "$device" == "DISCONNECT" ]; then
+if [ "$device_name" == "DISCONNECT" ]; then
+	bluetoothctl disconnect
 	exit
-elif [ "$device" == "OpenRun by Shokz" ]; then
-	bluetoothctl connect 20:74:CF:95:6D:8D && exit
-	not_found
-elif [ "$device" == "AUKEY BR-C1" ]; then
-	bluetoothctl connect FC:58:FA:A1:00:82 && exit
-	not_found
-elif [ "$device" == "Bose QC35 II" ] || [ "$device" == "LE-Bose QC35 II" ]; then
-	bluetoothctl connect 2C:41:A1:82:E2:47 && exit
-	not_found
 else
-	clear
-	echo "DEVICE NOT REGISTERED"
-	read
+	bluetoothctl disconnect
+	bluetoothctl connect "$device_id" && exit
+	not_found
+ 	clear
 fi
-clear
 done

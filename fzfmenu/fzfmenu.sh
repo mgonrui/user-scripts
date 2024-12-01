@@ -1,10 +1,12 @@
 #!/bin/sh
+
+export FZF_DEFAULT_OPTS="-e -i --info=hidden --layout=reverse --scroll-off=5 --tiebreak=index --bind 'home:first,end:last'"
 shopt -s expand_aliases
 # get the list of all my packages
 # command_list="$(echo "$commandlist" | grep -v "signal")"
 # append new options
 command_list=$(find $HOME/.scripts/fzfmenu -name '*.sh' -exec basename {} .sh \; )
-selected="$(echo "$command_list" | fzf -i -m --reverse  )"
+selected="$(echo "$command_list" | fzf -i -m)"
 source $HOME/.config/zsh/aliases.sh
 
 [ -z "$selected" ] && exit
